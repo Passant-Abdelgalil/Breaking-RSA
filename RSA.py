@@ -69,14 +69,12 @@ def nBitRandom(n):
 	return random.randrange(2**(n-1)+1, 2**n - 1)
 
 def getLowLevelPrime(n):
-	'''Generate a prime candidate divisible
-	by first primes'''
+	'''Generate a prime candidate divisibleby first primes'''
 	while True:
 		# Obtain a random number
 		pc = nBitRandom(n)
 
-		# Test divisibility by pre-generated
-		# primes
+		# Test divisibility by pre-generatedprimes
 		for divisor in first_primes_list:
 			if pc % divisor == 0 and divisor**2 <= pc:
 				break
@@ -107,11 +105,11 @@ def isMillerRabinPassed(mrc):
 			return False
 	return True
 
-def generate_two_large_primes():
+def generate_two_large_primes(n):
     arr=[0,0]
     for i in range(2):
         while True:
-            n = 256
+            #n = 256
             prime_candidate = getLowLevelPrime(n)
             if not isMillerRabinPassed(prime_candidate):
                 continue
@@ -120,3 +118,14 @@ def generate_two_large_primes():
                 arr[i]=prime_candidate
                 break
     return arr
+
+def generate_e(phi_n):
+    d=0
+    e=0
+    while d != 1:
+        e=random.randrange(2,phi_n)
+        d,x,y=extended_gcd(e,phi_n)
+        # print("e: ",e,"d: ",d, " x: ",x," y: ",y)
+    return e
+
+
