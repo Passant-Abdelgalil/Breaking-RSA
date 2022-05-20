@@ -36,8 +36,7 @@ def extended_gcd(a,b):
         y=p-q* (a//b)
     return (d,x,y)
 
-def RSA_Encrypt(m, p, q, e): #e:public exponent
-    n=p*q
+def RSA_Encrypt(m, n, e): #e:public exponent
     c=PowMod( ConvertToInt(m) ,e ,n ) 
     return c
 
@@ -109,7 +108,7 @@ def generate_two_large_primes(n):
     arr=[0,0]
     for i in range(2):
         while True:
-            #n = 256
+            # n = 256
             prime_candidate = getLowLevelPrime(n)
             if not isMillerRabinPassed(prime_candidate):
                 continue
