@@ -1,8 +1,8 @@
-from ast import arg
 from RSA import ConvertToStr
 from RSA2 import RSA
 import argparse
 import os
+from subprocess import Popen
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -20,12 +20,11 @@ if __name__ == "__main__":
 
     print("""
           1 => run RSA
-          2 => run client/server requirement
-          3 => run Chosen Cipher Attack
-          4 => run Mathematical Attack
+          2 => run Chosen Cipher Attack
+          3 => run Mathematical Attack
           """)
     req_number = 0
-    req_numbers = ["1", "2", "3", "4"]
+    req_numbers = ["1", "2", "3"]
     try:
         while not (req_number in req_numbers):
             req_number = input('select requirement number to run:\n')
@@ -34,7 +33,7 @@ if __name__ == "__main__":
         exit(1)
 
     output = open(output_file, 'w')
-    rsa = RSA(input_file)
+    rsa = RSA(file_path=input_file)
 
     if (req_number == "1"):
         cipher = rsa.encrypt(rsa.m)
@@ -48,8 +47,9 @@ if __name__ == "__main__":
         output.write(f"E(PU, m) = {cipher}\n")
         output.write(f"D(PR, c) = {decrypted}\n")
 
-    elif (req_number == "3"):
-        hacked_message, cipher_text = rsa.CCA()
+    elif (req_number == "2"):
+        cipher = rsa.encrypt(message=rsa.m)
+        hacked_message, cipher_text = rsa.CCA(cipher=cipher)
 
         if(hacked_message != rsa.m):
             output.write(
@@ -57,6 +57,6 @@ if __name__ == "__main__":
         output.write(f"hacked message is:  {hacked_message}\n")
         output.write(f"message is: {rsa.m}\n")
 
-    elif(req_number == "4"):
+    elif(req_number == "3"):
         cipher = rsa.encrypt(rsa.m)
         rsa.Math_Attack(cipher, rsa.n, rsa.e)
