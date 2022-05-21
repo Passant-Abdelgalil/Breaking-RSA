@@ -2,7 +2,6 @@ from RSA import ConvertToStr
 from RSA2 import RSA
 import argparse
 import os
-from subprocess import Popen
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
