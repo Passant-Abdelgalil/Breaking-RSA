@@ -58,4 +58,10 @@ if __name__ == "__main__":
 
     elif(req_number == "3"):
         cipher = rsa.encrypt(rsa.m)
-        rsa.Math_Attack(cipher, rsa.n, rsa.e)
+        hacked_message=ConvertToStr(rsa.Math_Attack(cipher, rsa.n, rsa.e))
+
+        if(hacked_message != rsa.m):
+            output.write(
+                "ERROR: hacked message doesn't match the plain text\n")
+        output.write(f"hacked message is:  {hacked_message}\n")
+        output.write(f"message is: {rsa.m}\n")
