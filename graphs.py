@@ -1,4 +1,3 @@
-import time
 from RSA2 import RSA
 import timeit
 from helpers import ConvertToStr
@@ -35,9 +34,9 @@ if __name__ == "__main__":
     # Req4: mathematical attack time vs key_length graph
     if args.show_math_attack.split("=")[-1].lower().strip() == "yes":            
 
-        arr_nBits = [9, 12, 16, 17, 20, 24, 29]
+        arr_nBits = [9, 12, 16, 18, 22]
         arr_message = ["a", "ab", "abc", 'abcd',
-                    'ZZZZZ', 'reem12', 'reema12', 'reema123']
+                    'ZZZZZ']
         arr_time = []
         arr_n = []
         for bit, message in zip(arr_nBits, arr_message):
@@ -52,12 +51,10 @@ if __name__ == "__main__":
 
             arr_time.append(time_taken)
             print(
-                f'time taken: {time_taken}, guessed message: {msg_guessed_byAttacker} with bit length: {bit} and n: {rsa.n}')
+                f'time taken: {time_taken}, guessed message: {ConvertToStr(msg_guessed_byAttacker)} with bit length: {bit} and n: {rsa.n}')
 
-        plt.title("nBits versus time taken by attack")
+        plt.title("Time(in seconds) taken by attack versus n")
         plt.plot(arr_n, arr_time, color="red")
-        plt.xlabel("Time")
-        plt.xticks(arr_time)
-        plt.ylabel("n bits")
-        plt.yticks(arr_nBits)
+        plt.ylabel("Time")
+        plt.xlabel("n")
         plt.show()

@@ -57,8 +57,14 @@ class RSA:
                         # set the right parameter
                         if user_input[0] == "p":
                             self.p = int(re.split("=\s*", user_input)[-1])
+                            if(checkPrime(self.p)==0):
+                                print("Invalid input: p must be prime")
+                                exit(1)
                         elif user_input[0] == "q":
                             self.q = int(re.split("=\s*", user_input)[-1])
+                            if(checkPrime(self.q)==0):
+                                print("Invalid input: q must be prime")
+                                exit(1)
                         elif user_input[0] == "e":
                             self.e = int(re.split("=\s*", user_input)[-1])
                         elif user_input[0] == "m":
@@ -261,12 +267,12 @@ class RSA:
         return ConvertToStr(hacked_message), cipher
 
     def Math_Attack(self, cipher, n, e):
-        for p in range(1, n):
+        for p in range(2, n):
             if n % p == 0:
                 if(self.Miller_Rabin_Primality_Test(p)):
                     q = n//p
                     m = self.decrypt(cipher, p, q, e)
-                    c1 = self.encrypt(m, p*q, e)
+                    c1 = self.encrypt(ConvertToStr(m), p*q, e)
                     if c1 == cipher:
                         return m
         return "can't know the message"

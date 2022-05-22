@@ -106,3 +106,37 @@ def generate_two_large_primes():
                 arr[i]=prime_candidate
                 break
     return arr
+
+def generate_two_large_primes(n):
+    arr=[0,0]
+    for i in range(2):
+        while True:
+            # n = 256
+            prime_candidate = getLowLevelPrime(n)
+            if not isMillerRabinPassed(prime_candidate):
+                continue
+            else:
+                # print(n, "bit prime is: \n", prime_candidate)
+                arr[i]=prime_candidate
+                break
+    return arr
+
+def generate_e(phi_n):
+    d=0
+    e=0
+    while d != 1:
+        e=random.randrange(2,phi_n)
+        d,x,y=extended_gcd(e,phi_n)
+        # print("e: ",e,"d: ",d, " x: ",x," y: ",y)
+    return e
+
+def checkPrime(num):
+    if num > 1:
+        for i in range(2, num//2):
+            if (num % i) == 0:
+                return 0 #not prime
+                break
+            else:
+                return 1 #prime
+    else:
+        return 0 #not prime

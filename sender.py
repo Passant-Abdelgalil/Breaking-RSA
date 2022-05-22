@@ -28,7 +28,7 @@ text1 = ''
 while text1.lower().strip() != 'bye':
 
     # send to client
-    text1 = input('ENTER message to send to client:\n')
+    text1 = input('ENTER message to send to receiver:\n')
     cipher = rsa.encrypt(text1, n, e)
     userB.send(str(cipher).encode())
 

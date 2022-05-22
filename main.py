@@ -1,4 +1,4 @@
-from RSA import ConvertToStr
+from helpers import ConvertToStr
 from RSA2 import RSA
 import argparse
 import os
